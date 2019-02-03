@@ -1,17 +1,17 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ict/ruby/version"
+require "ict/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ict-ruby"
   spec.version       = Ict::Ruby::VERSION
   spec.authors       = ["huhn"]
-  spec.email         = ["sehe89@gmail.com"]
+  spec.email         = [""]
 
   spec.summary       = "Ruby ict api client"
   spec.description   = "Ruby ict api client"
-  spec.homepage      = "http://www.iota.saarland"
+  spec.homepage      = "https://github.com/huhn511/ict-ruby"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "http://www.iota.saarland.git"
-    spec.metadata["changelog_uri"] = "http://www.iota.saarlands"
+    spec.metadata["source_code_uri"] = "https://github.com/huhn511/ict-ruby.git"
+    spec.metadata["changelog_uri"] = "https://github.com/huhn511/ict-ruby"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
