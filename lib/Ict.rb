@@ -18,6 +18,10 @@ module Ict
       send_request("getConfig")
     end
 
+    def setConfig(config_params)
+      send_request("setConfig", config_params)
+    end
+
     private
 
     def setSettings(settings)
@@ -31,20 +35,17 @@ module Ict
       hash.inject({}){ |h,(k,v)| h[k.to_sym] = v; h }
     end
 
-    def send_request(endpoint)
+    def send_request(endpoint, data = {})
+
       url = URI.parse(@url + '/'+ endpoint)
-      data = {
-        password: @password
-      }
+      data["password"] = @password
+
       Net::HTTP.start(url.host, url.port) do |http|
         req = Net::HTTP::Post.new(url.path)
-        req.set_form_data(data)
+        req.body = URI.encode_www_form(data)
+
         res = http.request(req)
-        if res && res.kind_of?(Net::HTTPSuccess)
-          return JSON.parse(res.body)
-        else
-          return false
-        end
+        return JSON.parse(res.body)
       end
     end
 
