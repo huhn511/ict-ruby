@@ -10,14 +10,31 @@ module Ict
     require 'net/https'
     require 'json'
 
+    def initialize(settings = {})
+      setSettings(settings)
+    end
+
     def getConfig
       send_request("getConfig")
     end
 
+    private
+
+    def setSettings(settings)
+      settings = symbolize_keys(settings)
+
+      @url = settings[:url] || 'http://localhost:2187'
+      @password = settings[:password] || 'test'
+    end
+
+    def symbolize_keys(hash)
+      hash.inject({}){ |h,(k,v)| h[k.to_sym] = v; h }
+    end
+
     def send_request(endpoint)
-      url = URI.parse("http://localhost:2187/#{endpoint}")
+      url = URI.parse(@url + '/'+ endpoint)
       data = {
-        password: 'testtest'
+        password: @password
       }
       Net::HTTP.start(url.host, url.port) do |http|
         req = Net::HTTP::Post.new(url.path)
@@ -26,7 +43,7 @@ module Ict
         if res && res.kind_of?(Net::HTTPSuccess)
           return JSON.parse(res.body)
         else
-          return "Something went wrong!"
+          return false
         end
       end
     end
